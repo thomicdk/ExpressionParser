@@ -1,0 +1,62 @@
+expression
+ = or_expression
+
+or_expression 
+ = and_expression "OR" or_expression
+ / and_expression
+ 
+and_expression 
+ = bool_expression "AND" and_expression
+ / bool_expression
+
+bool_expression
+ = add_expression "==" bool_expression
+ / add_expression "!=" bool_expression
+ / add_expression "<"  bool_expression
+ / add_expression "<=" bool_expression
+ / add_expression ">"  bool_expression
+ / add_expression ">=" bool_expression
+ / add_expression
+
+add_expression
+ = mult_expression "+" add_expression
+ / mult_expression "-" add_expression
+ / mult_expression
+
+mult_expression
+ = atom "*" mult_expression
+ / atom "/" mult_expression
+ / atom
+
+atom OK
+ = "(" expression ")"
+ / "!" expression
+ / function_call 
+ / string
+ / real_number
+ / integer
+ / boolean
+
+function_call
+ = identifier "(" (expression ("," expression)*)? ")"
+ / identifier
+
+function_identifier
+
+
+string
+ = "'" [^']* "'"
+
+identifier
+ = [a-zA-Z_]+
+
+integer
+ = [0-9]+
+
+real_number
+ = integer "." integer?
+ / "." integer
+ 
+boolean
+ = "TRUE"
+ / "FALSE"
