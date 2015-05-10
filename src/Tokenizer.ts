@@ -15,7 +15,6 @@ export enum TokenType {
 	DIVISION = 14,
 	AND = 21,
 	OR = 22,
-	NOT = 23,
 	EQUAL = 24,
 	NOTEQUAL = 25,
 	LESS = 26,
@@ -110,7 +109,7 @@ export class Tokenizer {
 		Tokenizer.add("\\*", TokenType.MULTIPLICATION);
 		Tokenizer.add("/", TokenType.DIVISION);			
 	
-		Tokenizer.add("!(?!=)", TokenType.NOT);
+		//Tokenizer.add("!(?!=)", TokenType.NOT);
 		Tokenizer.add("==", TokenType.EQUAL);
 		Tokenizer.add("!=", TokenType.NOTEQUAL);
 			

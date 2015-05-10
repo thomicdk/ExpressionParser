@@ -120,12 +120,11 @@ export class Parser {
 			}
 			this.nextToken();
 			return new ParenthesisExpression(expr);
-		} else if (this.lookAhead.token == Tokenizer.TokenType.NOT) {
-			this.nextToken();
-			var expr = this.expression();
-			return new NotExpression(expr);
-		} 
-		else if (this.lookAhead.token == Tokenizer.TokenType.IDENTIFIER) {
+//		} else if (this.lookAhead.token == Tokenizer.TokenType.NOT) {
+//			this.nextToken();
+//			var expr = this.expression();
+//			return new NotExpression(expr);
+		} else if (this.lookAhead.token == Tokenizer.TokenType.IDENTIFIER) {
 			return this.identifier();
 		} else if (this.lookAhead.token == Tokenizer.TokenType.STRING) {
 			var str = this.lookAhead.sequence.substring(1, this.lookAhead.sequence.length - 1);
@@ -443,14 +442,14 @@ export class ParenthesisExpression extends UnaryExpression {
 	}
 }
 
-export class NotExpression extends UnaryExpression {
-	constructor(expr : Expression) {
-		super(expr);
-	} 
-	getValue(): boolean {
-		return !this.expr.getValue();
-	}
-	toString() : string {
-		return "!" + this.expr;
-	}
-}
+//export class NotExpression extends UnaryExpression {
+//	constructor(expr : Expression) {
+//		super(expr);
+//	} 
+//	getValue(): boolean {
+//		return !this.expr.getValue();
+//	}
+//	toString() : string {
+//		return "!" + this.expr;
+//	}
+//}

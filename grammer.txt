@@ -28,9 +28,8 @@ mult_expression
  / atom "/" mult_expression
  / atom
 
-atom OK
+atom
  = "(" expression ")"
- / "!" expression
  / function_call 
  / string
  / real_number
@@ -40,9 +39,6 @@ atom OK
 function_call
  = identifier "(" (expression ("," expression)*)? ")"
  / identifier
-
-function_identifier
-
 
 string
  = "'" [^']* "'"
