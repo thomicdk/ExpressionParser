@@ -43,9 +43,6 @@ function_call
 string
  = "'" [^']* "'"
 
-identifier
- = [a-zA-Z_]+
-
 integer
  = [0-9]+
 
@@ -56,3 +53,25 @@ real_number
 boolean
  = "TRUE"
  / "FALSE"
+ 
+
+-------------------------------------------------------------
+Property Path
+-------------------------------------------------------------
+Path 
+	=	Property "." Path
+	/ Property
+
+Property
+	=	PropertyName ArrayIndex
+	/	PropertyName
+
+PropertyName
+	= [A-Za-z][A-Za-z0-9_]*
+	
+ArrayIndex
+	= "[" (0|[1-9][0-9]*) "]"
+
+
+ 
+ 
