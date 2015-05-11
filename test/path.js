@@ -1,7 +1,7 @@
 /* global process */
 
-var Tokenizer = require("../dist/js/Path/Tokenizer");
-var tokenizer = new Tokenizer.Tokenizer();
+var Parser = require("../dist/js/Path/Parser");
+var parser = new Parser.Parser();
 var readline = require('readline'),
     rl = readline.createInterface(process.stdin, process.stdout);
 
@@ -10,9 +10,8 @@ rl.prompt();
 
 rl.on('line', function (input) {
 	try {
-		tokenizer.tokenize(input).forEach(function(token) {
-			console.log(token.position + ": " + token.sequence + " (" + token.token + ")");
-		});
+		var expr = parser.parse(input);
+		console.log(expr.toString());
 	} catch (err) {
 		console.error(err.message);
 	}
