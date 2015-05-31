@@ -2,32 +2,42 @@ expression
  = or_expression
 
 or_expression 
- = and_expression "OR" or_expression
+ = or_expression "OR" and_expression
  / and_expression
  
 and_expression 
- = bool_expression "AND" and_expression
- / bool_expression
+ = and_expression "AND" equality_expression 
+ / equality_expression
 
-bool_expression
- = add_expression "==" bool_expression
- / add_expression "!=" bool_expression
- / add_expression "<"  bool_expression
- / add_expression "<=" bool_expression
- / add_expression ">"  bool_expression
- / add_expression ">=" bool_expression
- / add_expression
+equality_expression
+ = equality_expression "==" relational_expression
+ / equality_expression "!=" relational_expression
+ / relational_expression
+ 
+relational_expression
+ / relational_expression "<"  additive_expression
+ / relational_expression "<=" additive_expression
+ / relational_expression ">"  additive_expression
+ / relational_expression ">=" additive_expression
+ / additive_expression
 
-add_expression
- = mult_expression "+" add_expression
- / mult_expression "-" add_expression
- / mult_expression
+additive_expression
+ = additive_expression "+" multiplicative_expression
+ / additive_expression "-" multiplicative_expression 
+ / multiplicative_expression
 
-mult_expression
- = atom "*" mult_expression
- / atom "/" mult_expression
+multiplicative_expression
+ = multiplicative_expression "*" unary_expression
+ / multiplicative_expression "/" unary_expression
+ / multiplicative_expression "%" unary_expression
+ / unary_expression
+
+unary_expression
+ = "+" unary_expression
+ / "-" unary_expression
+ / "!" unary_expression
  / atom
-
+ 
 atom
  = "(" expression ")"
  / function_call 
@@ -37,11 +47,21 @@ atom
  / boolean
 
 function_call
- = identifier "(" (expression ("," expression)*)? ")"
+ = identifier "(" function_arguments? ")"
  / identifier
 
+function_arguments
+ = expression "," function_arguments
+ / regex_pattern "," function_arguments
+ / expression
+ / regex_pattern
+ 
+regex_pattern
+ = "/" REGEX "/"
+ 
+ 
 string
- = "'" [^']* "'"
+ = "\"" [^"]* "\""
 
 integer
  = [0-9]+
