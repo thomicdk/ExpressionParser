@@ -1,6 +1,6 @@
 /* global process */
 
-var Parser = require("../dist/js/Parser");
+var Parser = require("../dist/js/expression/Parser");
 var parser = new Parser.Parser();
 var readline = require('readline'),
     rl = readline.createInterface(process.stdin, process.stdout);
