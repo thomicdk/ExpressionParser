@@ -1,18 +1,19 @@
 /* global process */
 
-var Parser = require("../dist/js/expression/Parser");
-var parser = new Parser.Parser();
+var Expression = require("../dist/js/test");
 var readline = require('readline'),
     rl = readline.createInterface(process.stdin, process.stdout);
+
+console.log(Expression);
 
 rl.setPrompt('> ');
 rl.prompt();
 
 rl.on('line', function (input) {
 	try {
-		var expr = parser.parse(input);
+		var expr = Expression.parse(input);
 		//console.log(expr.toString() + " = " + expr.getValue());
-		console.log(expr.getValue());
+		console.log(expr.evaluate(null));
 	} catch (err) {
 		console.error(err.message);
 	}

@@ -1,26 +1,33 @@
+
+module expression {
+
+
 export enum TokenType {
-	EPSILON = 0,
-	COMMA = 1,
-	LPAREN = 2,
-	RPAREN = 3,
-	IDENTIFIER = 4,
-	STRING = 5,
-	INTEGER = 6,
-	DECIMAL = 7,
-	TRUE = 8,
-	FALSE = 9,
-	PLUS = 11,
-	MINUS = 12,
-	MULTIPLICATION = 13,
-	DIVISION = 14,
-	AND = 21,
-	OR = 22,
-	EQUAL = 24,
-	NOTEQUAL = 25,
-	LESS = 26,
-	LESSEQ = 27,
-	GREATER = 28,
-	GREATEREQ = 29
+	Epsilon,
+	Comma,
+	LeftParen,
+	RightParen,
+	Identifier,
+	Text,
+	RegexPattern,
+	Integer,
+	Decimal,
+	True,
+	False,
+	Not,
+	Multiplication,
+	Division,
+	Remainder,
+	Plus,
+	Minus,
+	Less,
+	LessEqual,
+	Greater,
+	GreaterEqual,
+	Equal,
+	NotEqual,
+	And,
+	Or
 }
 
 export class TokenInfo {
@@ -91,32 +98,40 @@ export class Tokenizer {
 	}
 
 	static initialize() {
-		Tokenizer.add(",", TokenType.COMMA);
-		Tokenizer.add("\\(", TokenType.LPAREN);
-		Tokenizer.add("\\)", TokenType.RPAREN);
-		Tokenizer.add("TRUE", TokenType.TRUE);
-		Tokenizer.add("FALSE", TokenType.FALSE);
-		Tokenizer.add("&&|AND", TokenType.AND);		
-		Tokenizer.add("\\|\\||OR", TokenType.OR);	
-		Tokenizer.add("[a-zA-Z][a-zA-Z0-9\\.]*", TokenType.IDENTIFIER);
+		Tokenizer.add(",", TokenType.Comma);
+		Tokenizer.add("\\(", TokenType.LeftParen);
+		Tokenizer.add("\\)", TokenType.RightParen);
+		Tokenizer.add("TRUE", TokenType.True);
+		Tokenizer.add("FALSE", TokenType.False);
+		
+		Tokenizer.add("&&|AND", TokenType.And);		
+		Tokenizer.add("\\|\\||OR", TokenType.Or);	
+		
+		Tokenizer.add("[a-zA-Z][a-zA-Z0-9_\\[\\]\\.]*", TokenType.Identifier);
 		// http://stackoverflow.com/questions/5695240/php-regex-to-ignore-escaped-quotes-within-quotes
-		Tokenizer.add("\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"", TokenType.STRING);		
-		Tokenizer.add("\\d+(?!\\.|\\d)", TokenType.INTEGER);	
-		Tokenizer.add("\\d+\\.\\d*|\\d*\\.\\d+", TokenType.DECIMAL);	
+		Tokenizer.add("\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"", TokenType.Text);
+		Tokenizer.add("/[^/\\\\]*(?:\\\\.[^/\\\\]*)*/", TokenType.RegexPattern);
+				
+		Tokenizer.add("\\d+(?!\\.|\\d)", TokenType.Integer);	
+		Tokenizer.add("\\d+\\.\\d*|\\d*\\.\\d+", TokenType.Decimal);	
 
-		Tokenizer.add("\\+", TokenType.PLUS);
-		Tokenizer.add("-", TokenType.MINUS);		
-		Tokenizer.add("\\*", TokenType.MULTIPLICATION);
-		Tokenizer.add("/", TokenType.DIVISION);			
-	
-		//Tokenizer.add("!(?!=)", TokenType.NOT);
-		Tokenizer.add("==", TokenType.EQUAL);
-		Tokenizer.add("!=", TokenType.NOTEQUAL);
-			
-		Tokenizer.add("<(?!=)", TokenType.LESS);
-		Tokenizer.add("<=", TokenType.LESSEQ);
-		Tokenizer.add(">(?!=)", TokenType.GREATER);
-		Tokenizer.add(">=", TokenType.GREATEREQ);		
+		Tokenizer.add("!(?!=)", TokenType.Not);
+		Tokenizer.add("\\*", TokenType.Multiplication);
+		Tokenizer.add("/", TokenType.Division);
+		Tokenizer.add("%", TokenType.Remainder);	
+
+		Tokenizer.add("\\+", TokenType.Plus);
+		Tokenizer.add("-", TokenType.Minus);		
+		
+		Tokenizer.add("<(?!=)", TokenType.Less);
+		Tokenizer.add("<=", TokenType.LessEqual);
+		Tokenizer.add(">(?!=)", TokenType.Greater);
+		Tokenizer.add(">=", TokenType.GreaterEqual);
+		
+		Tokenizer.add("==", TokenType.Equal);
+		Tokenizer.add("!=", TokenType.NotEqual);				
 	}
 }
 Tokenizer.initialize();
+
+}

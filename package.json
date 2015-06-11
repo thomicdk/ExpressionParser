@@ -9,8 +9,9 @@
   "author": "Michael Thomassen",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^3.8.11",
-    "gulp-typescript": "^2.6.0",
+    "gulp": "^3.9.0",
+    "gulp-rimraf": "^0.1.1",
+    "gulp-typescript": "^2.7.6",
     "merge2": "^0.3.5"
   }
 }

@@ -1,4 +1,5 @@
 var gulp = require("gulp");
+var rimraf = require('gulp-rimraf');
 var ts = require("gulp-typescript");
 var merge = require('merge2');
 
@@ -6,12 +7,19 @@ var paths = {
   scripts: ['src/**/*.ts']
 };
 
-gulp.task('scripts', function() {
+gulp.task('clean', function () {
+    return gulp.src(['dist/**/*'], { read: false })
+        .pipe(rimraf());
+});
+
+gulp.task('scripts', ['clean'], function() {
     var tsResult = gulp.src(paths.scripts)
                        .pipe(ts({
+						   target: "ES5",
                            declarationFiles: true,
                            noExternalResolve: true,
-						   module: "commonjs"
+						   module: "commonjs",
+						   sortOutput: true
                        }));
     
     return merge([
