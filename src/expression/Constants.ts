@@ -1,4 +1,4 @@
-/// <reference path="../Expression.ts"/>
+/// <reference path="Expression.ts"/>
 
 module expression {
 	
